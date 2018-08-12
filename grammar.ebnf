@@ -1,0 +1,29 @@
+character = /\w+/
+
+letter = /[a-zA-Z]/
+
+digit = /[0-9]/
+
+pos_int = "0" | [ "-" ], { digit };
+
+integer = "0" | [ "-" ], {
+
+color = "#", "0", "x", { ("a" | "b" | "c" | "d" | "e" | "f") | integer };
+
+command = 'click' | 'loadpage' | 'entertext' | 'scroll';
+
+element_selector = "#" | ".", { letter | integer };
+
+self_property = 'has-label' | 'contains-text'
+
+relative_property = 'directly-below' | 'below' |
+                    'directly-above' | 'above' |
+                    'right-of' | 'left-of';
+
+self_property_expression = self_property, ':', '"', { character }, '"';
+
+property = self_property | relative_property
+
+property_set = "(", { property }, ")"
+
+command_statement = command, element, [ property ]
